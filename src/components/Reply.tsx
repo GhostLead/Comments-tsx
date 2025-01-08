@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./styles.css"
 
 interface User {
   image: { png: string; webp: string };
@@ -38,8 +39,8 @@ function Reply({ reply, currentUser, onDelete, onEdit }: ReplyProps) {
     <div className="reply">
       <div className="reply-header">
         <img src={reply.user.image.png} alt={reply.user.username} />
-        <span>{reply.user.username}</span>
-        <span>{reply.createdAt}</span>
+        <span className="username">{reply.user.username}</span>
+        <span className="createdat">{reply.createdAt}</span>
       </div>
 
       {!isEditing ? (
@@ -57,10 +58,10 @@ function Reply({ reply, currentUser, onDelete, onEdit }: ReplyProps) {
       <div className="reply-actions">
         {canEditOrDelete && (
           <>
-            <button onClick={() => setIsEditing(!isEditing)}>
+            <button className="edit-button" onClick={() => setIsEditing(!isEditing)}>
               {isEditing ? "Cancel" : "Edit"}
             </button>
-            <button onClick={onDelete}>Delete</button>
+            <button className="delete-button" onClick={onDelete}>Delete</button>
           </>
         )}
       </div>

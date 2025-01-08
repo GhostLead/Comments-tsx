@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Comment from "./components/Comment";
-import DeleteConfirmation from "./components/DeleteConfirmation";
 
 interface User {
   image: { png: string; webp: string };
@@ -28,12 +27,6 @@ interface CommentType {
 function App() {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<{
-    commentId: number;
-    isReply: boolean;
-    replyId?: number;
-  } | null>(null);
 
   // Fetch data.json when the component mounts
   useEffect(() => {
@@ -72,37 +65,20 @@ function App() {
   };
 
   const handleDelete = (commentId: number, isReply: boolean, replyId?: number) => {
-    setShowDeleteModal(true);
-    setDeleteTarget({ commentId, isReply, replyId });
-  };
-
-  const confirmDelete = () => {
-    if (deleteTarget) {
-      const { commentId, isReply, replyId } = deleteTarget;
-
-      if (isReply) {
-        // Handle deleting a reply
-        const updatedComments = comments.map((comment) => {
-          if (comment.replies.some((reply) => reply.id === replyId)) {
-            comment.replies = comment.replies.filter((reply) => reply.id !== replyId);
-          }
-          return comment;
-        });
-        setComments(updatedComments);
-      } else {
-        // Handle deleting a comment
-        const updatedComments = comments.filter((comment) => comment.id !== commentId);
-        setComments(updatedComments);
-      }
-
-      setShowDeleteModal(false);
-      setDeleteTarget(null);
+    if (isReply) {
+      // Handle deleting a reply
+      const updatedComments = comments.map((comment) => {
+        if (comment.replies.some((reply) => reply.id === replyId)) {
+          comment.replies = comment.replies.filter((reply) => reply.id !== replyId);
+        }
+        return comment;
+      });
+      setComments(updatedComments);
+    } else {
+      // Handle deleting a comment
+      const updatedComments = comments.filter((comment) => comment.id !== commentId);
+      setComments(updatedComments);
     }
-  };
-
-  const cancelDelete = () => {
-    setShowDeleteModal(false);
-    setDeleteTarget(null);
   };
 
   const handleEdit = (commentId: number, isReply: boolean, newText: string, replyId?: number) => {
@@ -142,10 +118,6 @@ function App() {
           onEdit={handleEdit}
         />
       ))}
-
-      {showDeleteModal && (
-        <DeleteConfirmation onConfirm={confirmDelete} onCancel={cancelDelete} />
-      )}
     </div>
   );
 }

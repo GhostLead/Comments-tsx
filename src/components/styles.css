@@ -1,0 +1,71 @@
+.reply{
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 20px;
+    margin-left: 50px;
+    padding: 20px;
+}
+
+.reply-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    .username{
+        font-size: 110%;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .createdat{
+        font-style: italic;
+        font-family: monospace;
+    }
+}
+
+.comment{
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.comment-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    .username{
+        font-size: 110%;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .createdat{
+        font-style: italic;
+        font-family: monospace;
+    }
+
+}
+
+.delete-button:hover{
+    color: red;
+    border: 1px solid red;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.edit-button:hover{
+    background-color: white;
+    color: blue;
+    border: 1px solid blue;
+    transition: 0.2s;
+}
+
+.save-button{
+    color: blue;
+    border: 1px solid blue;
+    border-radius: 15px;
+}

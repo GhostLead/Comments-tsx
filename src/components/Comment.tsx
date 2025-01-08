@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Reply from "./Reply";
+import "./styles.css"
 
 interface User {
   image: { png: string; webp: string };
@@ -59,8 +60,8 @@ function Comment({ comment, currentUser, onReply, onDelete, onEdit }: CommentPro
     <div className="comment">
       <div className="comment-header">
         <img src={comment.user.image.png} alt={comment.user.username} />
-        <span>{comment.user.username}</span>
-        <span>{comment.createdAt}</span>
+        <span className="username">{comment.user.username}</span>
+        <span className="createdat">{comment.createdAt}</span>
       </div>
 
       {!isEditing ? (
@@ -79,7 +80,7 @@ function Comment({ comment, currentUser, onReply, onDelete, onEdit }: CommentPro
             <button onClick={() => setIsEditing(!isEditing)}>
               {isEditing ? "Cancel" : "Edit"}
             </button>
-            <button onClick={() => onDelete(comment.id, false)}>Delete</button>
+            <button className="delete-button" onClick={() => onDelete(comment.id, false)}>Delete</button>
           </>
         )}
       </div>
